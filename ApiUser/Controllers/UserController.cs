@@ -36,7 +36,7 @@ namespace ApiUser.Controllers
         {
             if (id == null) return NotFound();
             var user = await _context.Users.FindAsync(id);
-            if (user == null) return NotFound(new { message = "User NotFound" });
+            if (user == null) return NotFound(new { message = "User NotFound Bro" });
             var userResource = _mapper.Map<UserResource>(user);
             return Ok(userResource);
         }
@@ -80,8 +80,34 @@ namespace ApiUser.Controllers
             });
         }
 
-       
-        
+        [Route("{id}")]
+        [HttpPut]
+        public async Task<ActionResult> Update(int? id, [FromBody] UpdateProfileResource updateProfile)
+        {
+            if (id == null) return NotFound(new { message = "User Not Found Bro" });
+
+            var dbUser = _context.Users.FirstOrDefault(x => x.Id == id);
+
+            if (updateProfile.Email != dbUser.Email)
+            {
+                if (_context.Users.Any(x => x.Email == updateProfile.Email)) return Conflict(new
+                {
+                    message = "This Email Alredy Exists"
+                });
+            }
+
+            dbUser.Name = updateProfile.Name;
+            dbUser.Surname = updateProfile.Surname;
+            dbUser.Email = updateProfile.Email;
+
+            var userResource = _mapper.Map<User, UserResource>(dbUser);
+
+            await _context.SaveChangesAsync();
+            return Ok(userResource);
+        }
+
+
+
 
 
     }

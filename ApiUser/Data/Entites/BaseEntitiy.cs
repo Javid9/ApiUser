@@ -16,5 +16,8 @@ namespace ApiUser.Data.Entites
         public string AddedBy { get; set; }
         public string ModifiedBy { get; set; }
 
+
+      
+
     }
 }

@@ -6,7 +6,7 @@ using System;
 
 namespace ApiUser.Mapping
 {
-    public class MappingProfile: Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
@@ -24,8 +24,8 @@ namespace ApiUser.Mapping
 
 
             CreateMap<User, UserResource>()
-                .ForMember(x => x.RegisterDate, opt => opt.MapFrom(src => src.AddedDate.ToString("dd.MMMM.yyyy")));
-
+                .ForMember(x => x.RegisterDate, opt => opt
+                .MapFrom(src => src.AddedDate.ToString("dd.MMMM.yyyy")));
 
 
 
