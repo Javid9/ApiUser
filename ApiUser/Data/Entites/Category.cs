@@ -9,6 +9,6 @@ namespace ApiUser.Data.Entites
     {
         public string Name { get; set; }
         public string Icon { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 }
